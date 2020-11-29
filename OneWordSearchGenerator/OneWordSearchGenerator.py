@@ -80,7 +80,7 @@ def CheckWordNotThere(grid, x, y, c, word, size):
     # Add the letter
     letters.append(c)
     # Add the letters after
-    for i in xrange(1, span):
+    for i in xrange(1, span + 1):
         if (pointInGrid(x, y + i, size)):
             letters.append(grid[((y + i) * size) + x])
 
@@ -101,7 +101,7 @@ def CheckWordNotThere(grid, x, y, c, word, size):
     # Add the letter
     letters.append(c)
     # Add the letters after
-    for i in xrange(1, span):
+    for i in xrange(1, span + 1):
         if (pointInGrid(x + i, y, size)):
             letters.append(grid[(y * size) + x + i])
 
@@ -122,7 +122,7 @@ def CheckWordNotThere(grid, x, y, c, word, size):
     # Add the letter
     letters.append(c)
     # Add the letters after
-    for i in xrange(1, span):
+    for i in xrange(1, span + 1):
         if (pointInGrid(x + i, y - i, size)):
             letters.append(grid[((y - i) * size) + x + i])
 
@@ -143,7 +143,7 @@ def CheckWordNotThere(grid, x, y, c, word, size):
     # Add the letter
     letters.append(c)
     # Add the letters after
-    for i in xrange(1, span):
+    for i in xrange(1, span + 1):
         if (pointInGrid(x + i, y + i, size)):
             letters.append(grid[((y + i) * size) + x + i])
 
@@ -197,7 +197,7 @@ def insertLetter(grid, x, y, word, extra, size):
         letters.append(neighbours[i])
 
     # Loop through word trying to insert a letter such that it does NOT make the word in any direction
-    for i in xrange(len(letters) - 1):
+    for i in xrange(len(letters)):
         c = letters[i]
 
         canInsert = CheckWordNotThere(grid, x, y, c, word, size)
