@@ -4,7 +4,7 @@ import array
 import random
 import queue
 from enum import Enum
-from random import shuffle
+from collections import OrderedDict
 
 class Direction(Enum):
     Up = 0
@@ -18,7 +18,7 @@ class Direction(Enum):
 
 def scramble(word):
     word = list(word)
-    shuffle(word)
+    random.shuffle(word)
     return ''.join(word)
 
 def printGrid(grid, size):
@@ -164,20 +164,42 @@ def insertLetter(grid, x, y, word, extra, size):
     neighbours = list()
     if (pointInGrid(x - 1, y, size)):
         c = grid[(y * size) + x - 1]
-        if (c is not '.' and c not in neighbours):
+        if (c is not '.'):
             neighbours.append(c)
     if (pointInGrid(x + 1, y, size)):
         c = grid[(y * size) + x + 1]
-        if (c is not '.' and c not in neighbours):
+        if (c is not '.'):
             neighbours.append(c)
     if (pointInGrid(x, y - 1, size)):
         c = grid[((y - 1) * size) + x]
-        if (c is not '.' and c not in neighbours):
+        if (c is not '.'):
             neighbours.append(c)
     if (pointInGrid(x, y + 1, size)):
         c = grid[((y + 1) * size) + x]
-        if (c is not '.' and c not in neighbours):
+        if (c is not '.'):
             neighbours.append(c)
+    # if (pointInGrid(x + 1, y + 1, size)):
+    #     c = grid[((y + 1) * size) + x + 1]
+    #     if (c is not '.'):
+    #         neighbours.append(c)
+    # if (pointInGrid(x - 1, y - 1, size)):
+    #     c = grid[((y - 1) * size) + x - 1]
+    #     if (c is not '.'):
+    #         neighbours.append(c)
+    # if (pointInGrid(x + 1, y - 1, size)):
+    #     c = grid[((y - 1) * size) + x + 1]
+    #     if (c is not '.'):
+    #         neighbours.append(c)
+    # if (pointInGrid(x - 1, y + 1, size)):
+    #     c = grid[((y + 1) * size) + x - 1]
+    #     if (c is not '.'):
+    #         neighbours.append(c)
+
+    # Sort neighbours to have most common at the back 
+    neighbours.sort()
+
+    # Remove duplicates (keep order)
+    neighbours = list(OrderedDict.fromkeys(neighbours))
 
     # merge the word and extra work together, and scramble letters
     # so that we don't try to insert letters in the same order every time.
