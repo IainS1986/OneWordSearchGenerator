@@ -178,6 +178,10 @@ def insertLetter(grid, x, y, word, extra, size):
         c = grid[((y + 1) * size) + x]
         if (c is not '.'):
             neighbours.append(c)
+
+    # Weird issue here, if I add in the corners
+    # to the neighbours, I end up with far more repeated
+    # letters in the grid....
     # if (pointInGrid(x + 1, y + 1, size)):
     #     c = grid[((y + 1) * size) + x + 1]
     #     if (c is not '.'):
@@ -196,7 +200,7 @@ def insertLetter(grid, x, y, word, extra, size):
     #         neighbours.append(c)
 
     # Sort neighbours to have most common at the back 
-    neighbours.sort()
+    neighbours.sort(key=lambda x: neighbours.count(x))
 
     # Remove duplicates (keep order)
     neighbours = list(OrderedDict.fromkeys(neighbours))
