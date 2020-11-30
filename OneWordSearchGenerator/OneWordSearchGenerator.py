@@ -201,6 +201,9 @@ def insertLetter(grid, x, y, word, extra, size):
     # Remove duplicates (keep order)
     neighbours = list(OrderedDict.fromkeys(neighbours))
 
+    # TODO Remove letters from neighbours that we are okay being adjacent, i.e. double letters in the
+    # word (L in HOLLY for example)
+
     # merge the word and extra work together, and scramble letters
     # so that we don't try to insert letters in the same order every time.
     letters = list()
